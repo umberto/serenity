@@ -15,6 +15,7 @@ module Serenity
       Zip::ZipFile.open(@template) do |zipfile|
         %w(content.xml styles.xml).each do |xml_file|
           content = zipfile.read(xml_file)
+          content = content.force_encoding('UTF-8')
           odteruby = OdtEruby.new(XmlReader.new(content))
           out = odteruby.evaluate(context)
 
